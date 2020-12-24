@@ -1,0 +1,10 @@
+
+
+<router-outlet></router-outlet>
+
+<google-chart [type]="'LineChart'" [data]='covidService.covidChartList' [width]="1000" [height]="700" [columns]="columnNames" [title]="'Covid19 Chart'">
+</google-chart>
+
+<ul>
+  <li *ngFor="let user of userchatService.userList">{{user.connectionId}}</li>
+</ul>
