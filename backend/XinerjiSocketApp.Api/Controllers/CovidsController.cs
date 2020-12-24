@@ -4,8 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using XinerjiSocketApp.Infrastructure.Abstract;
 using XinerjiSocketApp.Model.Entities;
-using XinerjiSocketApp.Service.Abstract;
 
 namespace XinerjiSocketApp.Api.Controllers
 {

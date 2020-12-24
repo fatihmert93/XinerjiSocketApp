@@ -6,5 +6,35 @@
 </google-chart>
 
 <ul>
-  <li *ngFor="let user of userchatService.userList">{{user.connectionId}}</li>
+  <li *ngFor="let user of userchatService.userList"><span *ngIf="user.username.length > 0">{{user.username}}</span></li>
 </ul>
+
+
+<ng-template [ngIf]="connected">
+
+  <form #sendMessageForm = "ngForm" (ngSubmit) = "sendMessage(sendMessageForm)" >
+
+    <textarea  type = "text" name = "messageContent" placeholder = "Message" ngModel ></textarea>
+
+    <br/>
+  
+    <input type = "submit" value = "Send">
+  </form>
+
+</ng-template>
+
+<ng-template [ngIf]="!connected">
+
+  <form #myform = "ngForm" (ngSubmit) = "connect(myform)" >
+    <input type = "text" name = "username" placeholder = "Username" ngModel>
+    <br/>
+  
+    <input type = "submit" value = "Connect">
+  </form>
+
+</ng-template>
+
+<ul>
+  <li *ngFor="let message of userchatService.messages">[{{message.senderUsername}}]{{message.messageContent}}</li>
+</ul>
+

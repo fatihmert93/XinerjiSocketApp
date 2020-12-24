@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
+using XinerjiSocketApp.Infrastructure.Abstract;
 using XinerjiSocketApp.Infrastructure.DataAccess.Abstract.Repository;
 using XinerjiSocketApp.Infrastructure.Hubs;
 using XinerjiSocketApp.Model;
 using XinerjiSocketApp.Model.Entities;
-using XinerjiSocketApp.Service.Abstract;
 
 namespace XinerjiSocketApp.Service
 {

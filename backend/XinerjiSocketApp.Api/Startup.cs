@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using XinerjiSocketApp.Infrastructure.Abstract;
 using XinerjiSocketApp.Infrastructure.DataAccess.Abstract.Repository;
 using XinerjiSocketApp.Infrastructure.DataAccess.Dapper;
 using XinerjiSocketApp.Infrastructure.DataAccess.Dapper.MsSql;
@@ -17,7 +18,6 @@ using XinerjiSocketApp.Infrastructure.DataAccess.Dapper.Repositories;
 using XinerjiSocketApp.Infrastructure.Hubs;
 using XinerjiSocketApp.Infrastructure.IOC;
 using XinerjiSocketApp.Service;
-using XinerjiSocketApp.Service.Abstract;
 
 namespace XinerjiSocketApp.Api
 {
@@ -54,9 +54,12 @@ namespace XinerjiSocketApp.Api
             services.AddScoped(typeof(DapperGenericRepository<>), typeof(SqlGenericRepository<>));
 
             services.AddScoped<ICovidRepository, CovidRepository>();
-
+            services.AddScoped<IMessageRepository, MessageRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
 
             services.AddScoped<ICovidService, CovidService>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IMessageService, MessageService>();
 
 
             ServiceLocator.SetLocatorProvider(serviceProvider: services.BuildServiceProvider());

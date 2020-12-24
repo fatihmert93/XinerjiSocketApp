@@ -8,6 +8,8 @@ namespace XinerjiSocketApp.Model.Entities
     {
         public int SenderId { get; set; }
         public int ReceiverId { get; set; }
+        public string SenderUsername { get; set; }
+        public string ReceiverUsername { get; set; }
         public string MessageContent { get; set; }
         public DateTime CreateDate { get; set; }
 

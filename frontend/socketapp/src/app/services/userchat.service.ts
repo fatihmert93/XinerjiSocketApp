@@ -7,13 +7,18 @@ import * as signalR from '@microsoft/signalr';
 export class UserchatService {
 
   userList = new Array();
+
+  messages = new Array();
+
   private hubConnection!: signalR.HubConnection;
 
 
   constructor() { }
 
   private startInvoke(){
-    this.hubConnection.invoke("GetCovidList").catch((err) => {
+    this.hubConnection.invoke("ReceiveGroupMessage").then((res: any[]) => {
+
+    }).catch((err) => {
       console.log(err);
     });
   }
@@ -32,6 +37,38 @@ export class UserchatService {
     } )
   }
 
+  public startMessagesListener(){
+    this.hubConnection.on('ReceiveGroupMessage', (msgs: any[]) => {
+
+      this.messages = [];
+
+      debugger;
+
+      msgs.forEach((item) => {
+        this.messages.push(item);
+      });
+
+      console.log(this.messages);
+
+    } )
+  }
+
+  public connect(username:string){
+    this.hubConnection.invoke("Connect",username).then((res) => {
+        console.log(res);
+    }).catch((err) => {
+      console.log(err);
+    });
+  }
+
+  public sendGroupMessage(message:string){
+    this.hubConnection.invoke("SendGroupMessage",message).then((res) => {
+        console.log(res);
+    }).catch((err) => {
+      console.log(err);
+    });
+  }
+
   startConnection() {
 
     this.hubConnection = new signalR.HubConnectionBuilder()
@@ -46,6 +83,5 @@ export class UserchatService {
       .catch((err) => {
         console.log(err);
       });
-
   }
 }

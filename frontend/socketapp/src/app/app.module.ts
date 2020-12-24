@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import { GoogleChartsModule } from 'angular-google-charts';
 import { CovidService } from './services/covid.service';
 import { UserchatService } from './services/userchat.service';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -14,7 +16,9 @@ import { UserchatService } from './services/userchat.service';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    GoogleChartsModule
+    GoogleChartsModule,
+    NgbModule,
+    FormsModule
   ],
   providers: [
     CovidService,

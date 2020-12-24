@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Dapper;
 using XinerjiSocketApp.Infrastructure.DataAccess.Abstract.Repository;
+using XinerjiSocketApp.Infrastructure.Utilities;
 using XinerjiSocketApp.Model;
 using XinerjiSocketApp.Model.Entities;
 
@@ -38,7 +39,7 @@ namespace XinerjiSocketApp.Infrastructure.DataAccess.Dapper.Repositories
 
                 Dictionary<string, object> dictionary = new Dictionary<string, object>();
 
-                AddDictionaryToDynamicType(dictionary, res);
+                CommonUtility.AddDictionaryToDynamicType(dictionary, res);
 
                 Enumerable.Range(1,5).ToList().ForEach(x =>
                 {
@@ -79,33 +80,7 @@ namespace XinerjiSocketApp.Infrastructure.DataAccess.Dapper.Repositories
                 "INSERT Covid (CovidCount, CovidDate,City) VALUES(@CovidCount,@CovidDate,@City)", paramDistribution);
         }
 
-        private Dictionary<string, object> AddDictionaryToDynamicType(Dictionary<string, object> dictionary,
-            dynamic jsonDataDynamic)
-        {
-            foreach (PropertyDescriptor propertyDescriptor in TypeDescriptor.GetProperties(jsonDataDynamic))
-            {
-                try
-                {
-                    object obj = propertyDescriptor.GetValue(jsonDataDynamic!);
-
-                    if (!dictionary.ContainsKey(propertyDescriptor.Name))
-                    {
-                        dictionary.Add(propertyDescriptor.Name, obj);
-                    }
-                    else
-                    {
-                        dictionary.Remove(propertyDescriptor.Name);
-                        dictionary.Add(propertyDescriptor.Name, obj);
-                    }
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
-                }
-
-            }
-            return dictionary;
-        }
+        
 
 
         public async Task DeleteAllDatas()
