@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using XinerjiSocketApp.Infrastructure.DataAccess.Dapper.ExpressionBuilders;
+using XinerjiSocketApp.Model.Entities;
 
 namespace XinerjiSocketApp.Infrastructure.DataAccess.Abstract.Repository
 {
-    public interface IRepository<TEntity> where TEntity : class
+    public interface IRepository<TEntity> where TEntity : EntityBase
     {
         IEnumerable<TEntity> Query();
 

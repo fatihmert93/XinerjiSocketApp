@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using XinerjiSocketApp.Infrastructure.Abstract;
 using XinerjiSocketApp.Model.Entities;
+using XinerjiSocketApp.Service;
 
 namespace XinerjiSocketApp.Api.Controllers
 {
@@ -23,7 +24,7 @@ namespace XinerjiSocketApp.Api.Controllers
 
 
         [HttpPost("SaveCovid")]
-        public async Task<IActionResult> SaveCovid(Covid covid)
+        public async Task<IActionResult> SaveCovid([FromBody]Covid covid)
         {
             await _covidService.SaveCovid(covid);
 
@@ -51,16 +52,20 @@ namespace XinerjiSocketApp.Api.Controllers
         {
             Random rnd = new Random();
             
-            Enumerable.Range(1, 10).ToList().ForEach(async v =>
+            Parallel.Invoke(() =>
             {
-                foreach (ECity item in Enum.GetValues(typeof(ECity)))
+                Enumerable.Range(1, 10).ToList().ForEach(async v =>
                 {
-                    var newCovid = new Covid()
-                        {City = item, CovidCount = rnd.Next(100, 1000), CovidDate = DateTime.Now.AddDays(v)};
-                    await _covidService.SaveCovid(newCovid);
-                    System.Threading.Thread.Sleep(1000);
-                }
+                    foreach (ECity item in Enum.GetValues(typeof(ECity)))
+                    {
+                        var newCovid = new Covid()
+                            { City = item, CovidCount = rnd.Next(100, 1000), CovidDate = DateTime.Now.AddDays(v) };
+                        await _covidService.SaveCovid(newCovid);
+                        System.Threading.Thread.Sleep(1000);
+                    }
+                });
             });
+
 
             return Ok("Covid 19 datas saved");
         }

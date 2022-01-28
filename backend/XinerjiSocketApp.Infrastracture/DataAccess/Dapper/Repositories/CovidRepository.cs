@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Dapper;
+using Microsoft.Data.SqlClient;
 using XinerjiSocketApp.Infrastructure.DataAccess.Abstract.Repository;
 using XinerjiSocketApp.Infrastructure.Utilities;
 using XinerjiSocketApp.Model;
@@ -80,7 +81,12 @@ namespace XinerjiSocketApp.Infrastructure.DataAccess.Dapper.Repositories
                 "INSERT Covid (CovidCount, CovidDate,City) VALUES(@CovidCount,@CovidDate,@City)", paramDistribution);
         }
 
-        
+
+
+        public dynamic GetTest()
+        {
+            return ConnectionFactory.Connection.QueryAsync("select * from test");
+        }
 
 
         public async Task DeleteAllDatas()

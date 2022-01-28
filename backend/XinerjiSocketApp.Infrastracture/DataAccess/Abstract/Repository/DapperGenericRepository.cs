@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 using Dapper;
 using XinerjiSocketApp.Infrastructure.DataAccess.Dapper;
 using XinerjiSocketApp.Infrastructure.DataAccess.Dapper.ExpressionBuilders;
+using XinerjiSocketApp.Model.Entities;
 
 namespace XinerjiSocketApp.Infrastructure.DataAccess.Abstract.Repository
 {
-    public abstract class DapperGenericRepository<TEntity> : IRepository<TEntity> where TEntity : class
+    public abstract class DapperGenericRepository<TEntity> : IRepository<TEntity> where TEntity : EntityBase
     {
         protected readonly IConnectionFactory ConnectionFactory;
         private readonly string _tableName;

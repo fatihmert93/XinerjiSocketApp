@@ -77,6 +77,7 @@ namespace XinerjiSocketApp.Infrastructure.Hubs
             var messages = await _messageService.GetAllMessages();
 
             await Clients.All.SendAsync("ReceiveGroupMessage", messages);
+
         }
 
 
